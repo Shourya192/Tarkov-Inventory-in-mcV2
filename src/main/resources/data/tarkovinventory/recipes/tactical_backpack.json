@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LLL",
+    "SCS",
+    "LLL"
+  ],
+  "key": {
+    "L": { "item": "minecraft:leather" },
+    "S": { "item": "minecraft:string" },
+    "C": { "item": "minecraft:chest" }
+  },
+  "result": {
+    "item": "tarkovinventory:tactical_backpack",
+    "count": 1
+  }
+}
