@@ -1,0 +1,55 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[dependencies.tarkovinventory]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47.2.0,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.tarkovinventory]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1,1.21)"
+    ordering="NONE"
+    side="BOTH"
+
+# Curios — optional
+[[dependencies.tarkovinventory]]
+    modId="curios"
+    mandatory=false
+    versionRange="[5.3.0,)"
+    ordering="NONE"
+    side="BOTH"
+
+# Timeless and Classics Zero (TACZ) — optional
+[[dependencies.tarkovinventory]]
+    modId="tacz"
+    mandatory=false
+    versionRange="[1.0.0,)"
+    ordering="NONE"
+    side="BOTH"
+
+# Sophisticated Backpacks — optional
+[[dependencies.tarkovinventory]]
+    modId="sophisticatedbackpacks"
+    mandatory=false
+    versionRange="[1.0.0,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[mods]]
+    modId="tarkovinventory"
+    version="1.0.0"
+    displayName="Tarkov Inventory"
+    description='''
+Adds a full Tarkov-styled character & grid inventory screen.
+Supports Curios API equipment slots, TACZ firearms, and other backpack mods.
+'''
+
+# Register the mixin config here too. Forge 1.20.1 reads [[mixins]] from mods.toml,
+# which is more reliable than the jar manifest surviving reobfuscation.
+[[mixins]]
+    config="tarkovinventory.mixins.json"

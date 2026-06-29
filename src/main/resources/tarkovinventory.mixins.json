@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.tarkovinventory.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "tarkovinventory.refmap.json",
+  "mixins": [
+    "MixinTaczAmmoSearch",
+    "MixinTaczAmmoHandler"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 0
+  }
+}
