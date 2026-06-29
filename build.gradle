@@ -1,0 +1,101 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.+', changing: true
+        classpath 'org.spongepowered:mixingradle:0.7.+'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+
+version = '1.0.0'
+group = 'com.tarkovinventory'
+archivesBaseName = 'tarkov-inventory'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+minecraft {
+    mappings channel: 'official', version: '1.20.1'
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            mods {
+                tarkovinventory {
+                    source sourceSets.main
+                }
+            }
+        }
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            mods {
+                tarkovinventory {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+mixin {
+    add sourceSets.main, 'tarkovinventory.refmap.json'
+    config 'tarkovinventory.mixins.json'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
+
+    // Mixin annotation processor (Forge bundles the mixin runtime).
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+    // Curios, TaCZ and other soft-compat mods are detected via reflection at runtime.
+    // The TaCZ mixin uses @Pseudo so no compile-time dependency on TaCZ is needed.
+}
+
+// The mixin Gradle plugin's :addMixinsToJar task automatically registers
+// tarkovinventory.mixins.json in the jar manifest (via the mixin { config ... }
+// block above), so we do NOT set MixinConfigs manually here — doing both can
+// conflict. We only set the standard identifying attributes.
+tasks.named('jar', Jar).configure {
+    manifest {
+        attributes([
+            "Specification-Title"     : "tarkovinventory",
+            "Specification-Vendor"    : "tarkovinventory",
+            "Specification-Version"   : "1",
+            "Implementation-Title"    : project.name,
+            "Implementation-Version"  : archiveVersion.get(),
+            "Implementation-Vendor"   : "tarkovinventory",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+// Sanity check at build time: confirm the mixin config file is on the resource path.
+// Prints a clear message in the Gradle log so missing-config issues are obvious.
+gradle.taskGraph.whenReady {
+    def cfg = file("src/main/resources/tarkovinventory.mixins.json")
+    if (cfg.exists()) {
+        logger.lifecycle("[tarkovinventory] Mixin config found: ${cfg.name} (will be bundled + registered via MixinConfigs manifest attribute)")
+    } else {
+        logger.warn("[tarkovinventory] WARNING: tarkovinventory.mixins.json NOT found in resources — mixins will not load!")
+    }
+}
