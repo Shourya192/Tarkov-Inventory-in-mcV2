@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "tarkovinventory:block/tarkov_corpse" }
+  }
+}
