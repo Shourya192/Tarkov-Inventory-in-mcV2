@@ -1,0 +1,22 @@
+{
+  "item.tarkovinventory.tactical_backpack": "Tactical Backpack",
+  "container.tarkovinventory.tactical_backpack": "TACTICAL BACKPACK",
+  "itemGroup.tarkovinventory": "Tarkov Inventory",
+
+  "tarkovinventory.slot.earpiece": "EARPIECE",
+  "tarkovinventory.slot.headwear": "HEADWEAR",
+  "tarkovinventory.slot.facecover": "FACE COVER",
+  "tarkovinventory.slot.armband": "ARMBAND",
+  "tarkovinventory.slot.bodyarmor": "BODY ARMOR",
+  "tarkovinventory.slot.eyewear": "EYEWEAR",
+  "tarkovinventory.slot.onsling": "ON SLING",
+  "tarkovinventory.slot.holster": "HOLSTER",
+  "tarkovinventory.slot.onback": "ON BACK",
+  "tarkovinventory.slot.scabbard": "SCABBARD",
+  "tarkovinventory.slot.pockets": "POCKETS",
+  "tarkovinventory.slot.backpack": "BACKPACK",
+  "tarkovinventory.slot.pouch": "POUCH",
+
+  "key.tarkovinventory.open": "Open Tarkov Inventory",
+  "key.categories.tarkovinventory": "Tarkov Inventory"
+}
